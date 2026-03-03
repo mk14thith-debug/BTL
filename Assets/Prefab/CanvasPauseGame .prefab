@@ -1527,7 +1527,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fac4bce0228c8f942bc3508d50c851b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  volumneSlider: {fileID: 5060399230310695128}
+  volumeSlider: {fileID: 5060399230310695128}
   defaultMusicVolume: 1
 --- !u!1 &9092504129238179480
 GameObject:

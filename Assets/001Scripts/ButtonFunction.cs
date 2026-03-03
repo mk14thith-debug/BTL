@@ -29,9 +29,8 @@ public class ButtonFunction : MonoBehaviour
     {
         if (PlayerPrefs.GetInt("HasSavedGame", 0) == 1)
         {
-            string savedScene = PlayerPrefs.GetString("SavedScene", "Level1");
+            string savedScene = PlayerPrefs.GetString("SavedScene");
             SceneManager.LoadScene(savedScene);
-            Time.timeScale = 1f;
         }
     }
 

@@ -1,35 +1,56 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class SoundManager : MonoBehaviour
 {
-    [SerializeField] Slider volumneSlider;
-    public float defaultMusicVolume = 1f;
-    void Start()
-    {
-        
+    public static SoundManager Instance;
 
+    [SerializeField] private Slider volumeSlider;
+    public float defaultMusicVolume = 1f;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
+    private void Start()
+    {
         if (!PlayerPrefs.HasKey("musicVolume"))
         {
             PlayerPrefs.SetFloat("musicVolume", defaultMusicVolume);
+            PlayerPrefs.Save();
         }
-        Load();
-        AudioListener.volume = volumneSlider.value;
+
+        LoadVolume();
+        AudioListener.volume = PlayerPrefs.GetFloat("musicVolume");
     }
 
     public void ChangeVolume()
     {
-       AudioListener.volume = volumneSlider.value;
-        Save();
+        if (volumeSlider == null) return;
+
+        AudioListener.volume = volumeSlider.value;
+        SaveVolume();
     }
-    public void Load()
+
+    private void LoadVolume()
     {
-        volumneSlider.value = PlayerPrefs.GetFloat("musicVolume");
+        if (volumeSlider != null)
+        {
+            volumeSlider.value = PlayerPrefs.GetFloat("musicVolume");
+        }
     }
-    public void Save()
+
+    private void SaveVolume()
     {
-        PlayerPrefs.SetFloat("musicVolume", volumneSlider.value);
+        PlayerPrefs.SetFloat("musicVolume", volumeSlider.value);
+        PlayerPrefs.Save();
     }
 }

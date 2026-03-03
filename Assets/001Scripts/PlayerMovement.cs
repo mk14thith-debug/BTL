@@ -49,6 +49,10 @@ public class PlayerMovement : MonoBehaviour
     }
     void Start()
     {
+        if (GameManager.Instance.checkpointPosition != Vector3.zero)
+        {
+            transform.position = GameManager.Instance.checkpointPosition;
+        }
         Application.targetFrameRate = 60;
         
         audioSource = GetComponent<AudioSource>();
